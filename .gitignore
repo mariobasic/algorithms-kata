@@ -24,4 +24,20 @@ go.work.sum
 # env file
 .env
 
-.idea
+######################
+# Intellij
+######################
+.idea/
+*.iml
+*.iws
+*.ipr
+*.ids
+*.orig
+classes/
+out/
+
+######################
+# Mac OSX
+######################
+.DS_Store
+.svn
