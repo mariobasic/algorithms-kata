@@ -38,7 +38,7 @@ func walk(maze []string, wall rune, curr Point, end Point, seen [][]bool, path *
 		path.push(curr)
 		return true
 	}
-
+	// 4. been here?
 	if seen[curr.y][curr.x] {
 		return false
 	}

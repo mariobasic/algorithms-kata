@@ -27,7 +27,7 @@ func Test_bubbleSort(t *testing.T) {
 			//got := bubbleSort(tt.arg)
 			//require.Equal(t, tt.want, got)
 
-			got := bubbleSortTrial(tt.arg)
+			got := bubbleSort(tt.arg)
 			require.Equal(t, tt.want, got)
 		})
 	}
