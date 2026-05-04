@@ -34,6 +34,7 @@ func (q *Queue[T]) Dequeue() *T {
 
 	if q.len == 0 {
 		q.tail = nil
+		q.head = nil
 	}
 
 	return &current.value
