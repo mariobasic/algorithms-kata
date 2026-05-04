@@ -77,13 +77,5 @@ func twoCristalBalls(breaks []bool) (index int) {
 		}
 	}
 
-	// another way to do it
-	/*	i -= jmpAmount
-		for j := 0; j <= jmpAmount && i < len(breaks); j, i = j+1, i+1 {
-			if breaks[i] {
-				return i
-			}
-		}*/
-
 	return -1
 }
