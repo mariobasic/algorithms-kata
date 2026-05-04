@@ -9,7 +9,7 @@ func compare[T cmp.Ordered](a, b *BinaryNode[T]) bool {
 		return true
 	}
 	// structural check
-	// are we structurally not the same?
+	// are we structurally different?
 	if a == nil || b == nil {
 		return false
 	}

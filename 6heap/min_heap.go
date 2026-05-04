@@ -63,7 +63,7 @@ func (h *MinHeap[T]) heapifyDown(idx int) {
 	rVal := h.data[rIdx]
 
 	if lVal > rVal && v > rVal {
-		//swap with rChild
+		// rVal is the smallest, and we are bigger than it - swap
 		h.data[idx], h.data[rIdx] = rVal, v
 		h.heapifyDown(rIdx)
 	} else if rVal > lVal && v > lVal {
