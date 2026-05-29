@@ -6,19 +6,30 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestWeightedAdjacencyList_All(t *testing.T) {
+func Test_pq_dijkstraList(t *testing.T) {
 	//     >(1)<--->(4) ---->(5)
 	//    /          |       /|
 	// (0)     ------|------- |
 	//    \   v      v        v
 	//     >(2) --> (3) <----(6)
-	tt := getGraph()
-	expected := []int{0, 1, 4, 5, 6}
-	assert.Equal(t, expected, Dfs(tt, 0, 6))
-	assert.Nil(t, Dfs(tt, 6, 0))
+	tt := getGraph1()
+	distancesToNodes := []int{0, 3, 1, 8, 4, 6, 7}
+	assert.Equal(t, distancesToNodes, dijkstraPq(0, 6, tt))
 }
 
-func getGraph() WeightedAdjacencyList {
+func Test_dijkstraList(t *testing.T) {
+	//     >(1)<--->(4) ---->(5)
+	//    /          |       /|
+	// (0)     ------|------- |
+	//    \   v      v        v
+	//     >(2) --> (3) <----(6)
+	tt := getGraph1()
+	expected := []int{0, 1, 4, 5, 6}
+	assert.Equal(t, expected, dijkstraList(0, 6, tt))
+	assert.Nil(t, dijkstraList(6, 0, tt))
+}
+
+func getGraph1() WeightedAdjacencyList {
 	// Create the adjacency list with 7 nodes
 	list := make(WeightedAdjacencyList, 7)
 
