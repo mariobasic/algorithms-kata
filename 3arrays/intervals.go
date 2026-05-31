@@ -5,6 +5,8 @@ import (
 )
 
 /*
+Insert Interval
+
 You are given an array of non-overlapping intervals.
 intervals where intervals[i] = [start_i, end_i] represents the start and the end time of the
 ith interval. intervals is initially sorted in ascending order by start_i.
@@ -56,6 +58,8 @@ func insert(intervals [][]int, newInterval []int) [][]int {
 }
 
 /*
+Merge Interval
+
 Given an array of intervals where intervals[i] = [start_i, end_i], merge all overlapping
 intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
@@ -95,6 +99,24 @@ func merge(intervals [][]int) [][]int {
 	return rslt
 }
 
+/*
+Non-overlapping Intervals
+Given an array of  intervals where intervals[i] = [start_i, end_i], return the
+minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+Note: Intervals are non-overlapping even if they have a common point.
+For example, [1, 3] and [2, 4] are overlapping, but [1, 2] and [2, 3] are non-overlapping.
+
+Example 1:
+Input: intervals = [[1,2],[2,4],[1,4]]
+Output: 1
+
+Explanation: After [1,4] is removed, the rest of the intervals are non-overlapping.
+
+Example 2:
+Input: intervals = [[1,2],[2,4]]
+Output: 0
+*/
 func eraseOverlapIntervals(intervals [][]int) int {
 	sort.Slice(intervals, func(i, j int) bool {
 		return intervals[i][1] < intervals[j][1]
@@ -113,4 +135,37 @@ func eraseOverlapIntervals(intervals [][]int) int {
 	}
 
 	return overlaps
+}
+
+type Interval struct {
+	start, end int
+}
+
+/*
+Meeting rooms
+
+Given an array of meeting time interval objects consisting of start and end times
+[[start_1,end_1],[start_2,end_2],...] (start_i < end_i), determine if a person
+could add all meetings to their schedule without any conflicts.
+
+Note: (0,8),(8,10) is not considered a conflict at 8
+
+Input: intervals = [(0,30),(5,10),(15,20)]
+Output: false
+
+Input: intervals = [(5,8),(9,15)]
+Output: true
+*/
+func canAttendMeetings(intervals []Interval) bool {
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i].start < intervals[j].start
+	})
+
+	for i := 1; i < len(intervals); i++ {
+		if intervals[i-1].end > intervals[i].start {
+			return false
+		}
+	}
+
+	return true
 }

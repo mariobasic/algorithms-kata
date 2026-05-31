@@ -143,3 +143,88 @@ func Test_eraseOverlapIntervals(t *testing.T) {
 		})
 	}
 }
+
+func Test_canAttendMeetings(t *testing.T) {
+	tests := []struct {
+		name      string
+		intervals []Interval
+		expected  bool
+	}{
+		// --- Given examples ---
+		{
+			name:      "given: overlap at start and middle",
+			intervals: []Interval{{0, 30}, {5, 10}, {15, 20}},
+			expected:  false,
+		},
+		{
+			name:      "given: no overlap",
+			intervals: []Interval{{5, 8}, {9, 15}},
+			expected:  true,
+		},
+
+		// --- Touching endpoints (edge case) ---
+		{
+			name:      "touching endpoints are NOT a conflict",
+			intervals: []Interval{{0, 8}, {8, 10}},
+			expected:  true, // end == start is allowed
+		},
+
+		// --- Overlap variants ---
+		{
+			name:      "fully contained interval",
+			intervals: []Interval{{1, 10}, {3, 5}},
+			expected:  false,
+		},
+		{
+			name:      "partial overlap",
+			intervals: []Interval{{1, 5}, {4, 8}},
+			expected:  false,
+		},
+		{
+			name:      "exact duplicate intervals",
+			intervals: []Interval{{1, 5}, {1, 5}},
+			expected:  false,
+		},
+
+		// --- Order independence ---
+		{
+			name:      "unsorted input, no conflict",
+			intervals: []Interval{{9, 15}, {5, 8}}, // reversed order
+			expected:  true,
+		},
+		{
+			name:      "unsorted input, with conflict",
+			intervals: []Interval{{15, 20}, {0, 30}, {5, 10}}, // shuffled
+			expected:  false,
+		},
+
+		// --- Boundary / trivial cases ---
+		{
+			name:      "single interval",
+			intervals: []Interval{{1, 5}},
+			expected:  true,
+		},
+		{
+			name:      "empty intervals",
+			intervals: []Interval{},
+			expected:  true,
+		},
+		{
+			name:      "multiple non-overlapping in order",
+			intervals: []Interval{{1, 2}, {3, 4}, {5, 6}},
+			expected:  true,
+		},
+		{
+			name:      "multiple touching endpoints in sequence",
+			intervals: []Interval{{0, 5}, {5, 10}, {10, 15}},
+			expected:  true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := canAttendMeetings(tt.intervals); got != tt.expected {
+				t.Errorf("canAttendMeetings() = %v, want %v", got, tt.expected)
+			}
+		})
+	}
+}
